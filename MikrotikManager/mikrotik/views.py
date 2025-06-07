@@ -20,7 +20,7 @@ def MikManger(request, mikrotik_name):
         user_id = request.user.id
     Router = Mikrotik.objects.filter(Userid = user_id, MikName=mikrotik_name)
     router = Router[0].MikName
-    Commands = ["interface Print", "ipAddress Print"]
+    Commands = ["interface print", "ip address print"]
     if Router:
         context = {
             "Mikrotik": router,
@@ -44,11 +44,9 @@ def MikCommand(request, mikrotik_name, Routercommand):
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy)
     ssh.connect(hostname=router.MikIp, port=router.MikPort,
                 username=router.MikUsername, password=router.MikPassword, look_for_keys=False)
-    command = "\\" + Routercommand
-    print(command)
+    command = "/" + Routercommand
     stdin, stdout, stderr = ssh.exec_command(command)
     res = stdout.read().decode()
-    print(res)
     ssh.close()
     result = {
         "result": res
