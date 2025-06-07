@@ -1,7 +1,49 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Mikrotik
+from .models import Mikrotik, Hotspot
+from .forms import addMikuserForm
 import paramiko
+
+
+
+@login_required
+def addMikuser(request):
+    if request.method == "POST":
+        if request.method == 'POST':
+            form = addMikuserForm(request.POST, user=request.user)
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            speed = request.POST.get('speed')
+            upload = request.POST.get('upload')
+            download = request.POST.get('download')
+            if form.is_valid():
+                router = form.cleaned_data['device']
+            else:
+                user_id = request.user.id
+                router = Mikrotik.objects.filter(Userid=user_id)[0]
+            Hotspot.objects.create(
+                Hotspot_id = router,
+                uname = username,
+                upass = password,
+                speed = speed,
+                upload = upload,
+                download = download
+            )
+            return redirect("/")
+    else:
+        user_id = request.user.id
+        routers = Mikrotik.objects.filter(Userid=user_id)
+        if len(routers) == 0:
+            return redirect("/")
+        elif len(routers) == 1:
+            return render(request, "mikrotik/addMikuser.html")
+        else:
+            form = addMikuserForm(user=request.user)
+            context = {
+                "form": form,
+                "routers": routers
+            }
+            return render(request, "mikrotik/addMikuser.html", context=context)
 
 
 @login_required

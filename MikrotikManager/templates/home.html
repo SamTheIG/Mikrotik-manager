@@ -6,11 +6,18 @@
 {% block content %}
 {% if user.is_authenticated %}
 <p>Hi {{ user.username }}!</p>
-<p><a href="mikrotik/">Mikrotik App</a></p>
-<p><a href="{% url 'password_change' %}">Password Change</a></p>
 <form action="{% url 'logout' %}" method="post">
   {% csrf_token %}
   <button type="submit">Log Out</button>
+</form>
+<form action="mikrotik/" method="GET">
+<button type="submit">ثبت کاربر</button>
+</form>
+<form action="show/" method="GET">
+<button type="submit">نمایش</button>
+</form>
+<form action="settings/" method="GET">
+<button type="submit">تنظیمات</button>
 </form>
 {% else %}
 <p>You are not logged in</p>
