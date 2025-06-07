@@ -2,5 +2,6 @@
 
 # TODO:
 - [x] Make the basic Django
-- [ ] Create the Mikrotik app
+- [x] Create the Mikrotik app
+- [ ] Complete the Mikrotik model
 - [ ] connect to Mikrotik server and run commands
