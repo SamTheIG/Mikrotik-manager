@@ -21,6 +21,15 @@ tr:nth-child(even) {
   background-color: #dddddd;
 }
 </style>
+<script>
+    function handleClick(item) {
+        fetch(`/handle_click/${item}`)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('result').innerText = data;
+            })
+    }
+</script>
 </head>
 <body>
     <a href="/mikrotik/">Mikrotik</a>
@@ -29,11 +38,16 @@ tr:nth-child(even) {
     <tr>
         <th>Commands</th>
     </tr>
+
     <tr>
         {% for command in Commands %}
-            <td>{{ command }}</td>  <!--TODO: Make it clickable so the command run as user clicked on it -->
+            <td><a href="/mikrotik/{{Mikrotik}}/{{ command }}/">{{command}}</a></td>
+            <!-- <td><a href="javascript:void(0);" onclick="handleClick('{{command}}')">{{command}}</a></td> -->
         {% endfor %}
     </tr>
     </table>
+
+    {{result}}
+    <!-- <div id="result"></div> -->
 </body>
 </html>
