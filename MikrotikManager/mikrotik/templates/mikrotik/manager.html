@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{Mikrotik}}</title>
+    <style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+    <a href="/mikrotik/">Mikrotik</a>
+    <h2>List of Cammands</h2>
+    <table>
+    <tr>
+        <th>Commands</th>
+    </tr>
+    <tr>
+        {% for command in Commands %}
+            <td>{{ command }}</td>  <!--TODO: Make it clickable so the command run as user clicked on it -->
+        {% endfor %}
+    </tr>
+    </table>
+</body>
+</html>
