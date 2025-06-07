@@ -1,3 +1,9 @@
 from django.shortcuts import render
+from .models import Mikrotik
 
-# Create your views here.
+def MikIndex(request):
+    Mikrotiks = Mikrotik.objects.all()
+    context = {
+        "Mikrotiks": Mikrotiks
+    }
+    return render(request, "mikrotik/index.html", context=context)
