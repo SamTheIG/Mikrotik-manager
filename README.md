@@ -6,5 +6,6 @@
 - [x] Complete the Mikrotik model
 - [x] Show commands for each Router
 - [x] Run commands by clicking on them
-- [x] connect to Mikrotik server and run commands
+- [x] Connect to Mikrotik server and run commands
+- [ ] Save the Hotspot information in Router
 - [ ] What's next?

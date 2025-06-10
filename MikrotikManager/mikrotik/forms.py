@@ -9,4 +9,3 @@ class addMikuserForm(forms.Form):
         super().__init__(*args, **kwargs)
         if user is not None:
             self.fields['device'].queryset = Mikrotik.objects.filter(Userid=user.id)
-    

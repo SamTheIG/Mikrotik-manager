@@ -6,6 +6,22 @@ import paramiko
 
 
 
+def save_user_date(name, username, password, profile, limit_in, limit_out, ip, port):
+    try:
+        ssh = paramiko.SSHClient()
+        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy)
+        ssh.connect(hostname=ip, port=port, username=username, password=password, look_for_keys=False)
+        stdin, stdout, stderr = ssh.exec_command(f"""/ip hotspot user set [find name={name}]
+                         name={username} password={password} profile={profile} limit-bytes-in={limit_in} limit-bytes-out={limit_out}""")
+        res = stdout.read().decode()
+        ssh.close()
+        return res
+        # TODO: send a seccess message to user
+    except Exception as e:
+        # TODO: send a failed message to user
+        pass
+
+
 @login_required
 def addMikuser(request):
     if request.method == "POST":
@@ -29,6 +45,7 @@ def addMikuser(request):
                 upload = upload,
                 download = download
             )
+            save_user_date(router.MikName, username, password, speed, download, upload, router.MikIp, router.MikPort) #TODO: ip and port
             return redirect("/")
     else:
         user_id = request.user.id
@@ -43,6 +60,7 @@ def addMikuser(request):
                 "form": form,
                 "routers": routers
             }
+            # TODO: Create comboBox for Speed, Download, Upload
             return render(request, "mikrotik/addMikuser.html", context=context)
 
 
@@ -94,3 +112,4 @@ def MikCommand(request, mikrotik_name, Routercommand):
         "result": res
     }
     return render(request, "mikrotik/manager.html", context=result)
+
