@@ -7,6 +7,6 @@
 - [x] Show commands for each Router
 - [x] Run commands by clicking on them
 - [x] Connect to Mikrotik server and run commands
-- [ ] Save the Hotspot information in Router
+- [x] Save the Hotspot information in Router
 - [ ] Show the information for the registered users in Hotspot table and router
 - [ ] What's next?
