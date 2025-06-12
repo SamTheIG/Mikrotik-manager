@@ -57,7 +57,12 @@ def addMikuser(request):
         if len(routers) == 0:
             return redirect("/")
         elif len(routers) == 1:
-            return render(request, "mikrotik/addMikuser.html")
+            context = {
+                "speed": Speed,
+                "download": Download,
+                "upload": Upload
+            }
+            return render(request, "mikrotik/addMikuser.html", context=context)
         else:
             form = addMikuserForm(user=request.user)
             context = {
