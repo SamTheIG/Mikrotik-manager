@@ -3,21 +3,25 @@ from django.contrib.auth.decorators import login_required
 from .models import Mikrotik, Hotspot
 from .forms import addMikuserForm
 import paramiko
-
+from info import Speed, Download, Upload, str_to_byte_map
 
 
 def save_user_date(name, username, password, profile, limit_in, limit_out, ip, port):
     try:
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy)
+        # profile = str_to_byte_map[profile]
+        limit_in = str_to_byte_map[limit_in]
+        limit_out = str_to_byte_map[limit_out]
+        print(profile, limit_in, limit_out)
         ssh.connect(hostname=ip, port=port, username=username, password=password, look_for_keys=False)
         stdin, stdout, stderr = ssh.exec_command(f"""/ip hotspot user set [find name={name}]
                          name={username} password={password} profile={profile} limit-bytes-in={limit_in} limit-bytes-out={limit_out}""")
         res = stdout.read().decode()
         ssh.close()
-        return res
         # TODO: send a seccess message to user
     except Exception as e:
+        print(e)
         # TODO: send a failed message to user
         pass
 
@@ -58,9 +62,11 @@ def addMikuser(request):
             form = addMikuserForm(user=request.user)
             context = {
                 "form": form,
-                "routers": routers
+                "routers": routers,
+                "speed": Speed,
+                "download": Download,
+                "upload": Upload
             }
-            # TODO: Create comboBox for Speed, Download, Upload
             return render(request, "mikrotik/addMikuser.html", context=context)
 
 

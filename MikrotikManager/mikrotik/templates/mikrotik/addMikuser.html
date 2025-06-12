@@ -31,15 +31,32 @@
     </div>
     <div class="form-group col-md-3">
       <label for="inputEmail4">Speed</label>
-      <input type="number" class="form-control" name="speed" id="speed" placeholder="Speed MB">
+      <select name="speed">
+        {% for item in speed %}
+          <option value={{item}}>{{item}}</option>
+        {% endfor %}
+      </select>
+
+      <!-- <input type="text" name="speed"> -->
+      <!-- <input type="number" class="form-control" name="speed" id="speed" placeholder="Speed MB"> -->
     </div>
     <div class="form-group col-md-3">
       <label for="inputEmail4">Upload</label>
-      <input type="number" class="form-control" name="upload" id="upload" placeholder="Upload MB">
+      <select name="upload">
+        {% for item in upload %}
+          <option value={{item}}>{{item}}</option>
+        {% endfor %}
+      </select>
+      <!-- <input type="number" class="form-control" name="upload" id="upload" placeholder="Upload MB"> -->
     </div>
     <div class="form-group col-md-3">
       <label for="inputEmail4">Download</label>
-      <input type="number" class="form-control" name="download" id="download" placeholder="Download MB">
+      <select name="download">
+        {% for item in download %}
+          <option value={{item}}>{{item}}</option>
+        {% endfor %}
+      </select>
+      <!-- <input type="number" class="form-control" name="download" id="download" placeholder="Download MB"> -->
     </div>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>

@@ -21,9 +21,9 @@ class Hotspot(models.Model):
     Hotspot_id = models.ForeignKey("Mikrotik", on_delete=models.CASCADE, null=False)
     uname = models.CharField(max_length=100, null=False)
     upass = models.CharField(max_length=100, null=False)
-    speed = models.IntegerField(null=False)
-    upload = models.IntegerField(null=False)
-    download = models.IntegerField(null=False)
+    speed = models.CharField(max_length=10, null=False)
+    upload = models.CharField(max_length=10, null=False)
+    download = models.CharField(max_length=10, null=False)
     createdDate = models.DateTimeField(auto_now_add=True, null=False)
 
     def __str__(self):
