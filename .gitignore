@@ -195,3 +195,4 @@ cython_debug/
 OLD
 info.*
 Docs
+.DS_Store
